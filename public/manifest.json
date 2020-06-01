@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "short_name": "Stock News Extension",
+  "name": "Stock News Extension",
+  "description": "For the suite of stock news applications.",
+  "version": "0.1",
+  "browser_action": {
+      "default_popup": "index.html"
+  },
+  "permissions": [
+      "activeTab"
+  ],
+  "content_security_policy": "script-src 'self' 'sha256-5As******'; object-src 'self'",
+  "author": "Tim Park"
+}
