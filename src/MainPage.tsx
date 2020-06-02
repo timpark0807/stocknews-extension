@@ -52,8 +52,7 @@ export const MainPage: React.FC = () => {
     return (
 
         <div className="page">
-            
-            <Route exact path="/">
+            <Route path="/index.html">
                 <Search handleChange={handleChange} handleClick={handleClick} />
             </Route>
 

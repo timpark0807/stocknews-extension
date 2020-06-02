@@ -21,7 +21,7 @@ export const NewsTable: React.FC<Props> = ({ news }) => {
 
     return (
         <div>
-        <Link to="/">
+        <Link to="/index.html">
             <Button variant="primary">Back</Button>
         </Link>
 
