@@ -1,20 +1,15 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import { Articles } from "./MainPage"
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
-export interface Article {
-    headline: string;
-    source: string;
-    url: string;
+interface Props {
+    news: Articles;
 }
-
-export interface Articles {
-    ticker: string;
-    articles: Article[];
-}
-
-export const NewsTable: React.FC<Articles> = ({ticker, articles}) => {
+export const NewsTable: React.FC<Props> = ({ news }) => {
     const renderTable = () => {
-        return articles.map(function(article) {
+        return news.articles.map(function(article) {
             return (
                 <tr>
                     <td>{article.headline}</td>
@@ -26,6 +21,11 @@ export const NewsTable: React.FC<Articles> = ({ticker, articles}) => {
 
     return (
         <div>
+        <Link to="/">
+            <Button variant="primary">Back</Button>
+        </Link>
+
+        {news.articles.length > 1 && 
             <Table style={{width: "100%"}}>
             <thead>
                 <tr>
@@ -37,6 +37,8 @@ export const NewsTable: React.FC<Articles> = ({ticker, articles}) => {
                 {renderTable()}
             </tbody>
             </Table>
+        }
         </div>
+
     )
 }

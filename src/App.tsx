@@ -5,14 +5,17 @@ import Navbar from "react-bootstrap/Navbar";
 import MainPage from "./MainPage";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Navbar bg="primary" expand="lg" variant="dark">
-        <Navbar.Brand>Stock News</Navbar.Brand>
-      </Navbar>
-      <MainPage/>
+      <BrowserRouter>
+        <Navbar bg="primary" expand="lg" variant="dark">
+          <Navbar.Brand>Stock News</Navbar.Brand>
+        </Navbar>
+        <MainPage/>
+      </BrowserRouter>
     </div>
   );
 }

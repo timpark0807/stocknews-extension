@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
 import { NewsTable } from './NewsTable'
 import axios, {AxiosResponse} from 'axios';
 import { Search } from "./Search";
+import { Route } from "react-router-dom";
 
 export interface Article {
     headline: string;
@@ -54,8 +52,14 @@ export const MainPage: React.FC = () => {
     return (
 
         <div className="page">
-            <Search handleChange={handleChange} handleClick={handleClick} />
-            <NewsTable news={articles}/>
+            
+            <Route exact path="/">
+                <Search handleChange={handleChange} handleClick={handleClick} />
+            </Route>
+
+            <Route exact path="/news">
+                <NewsTable news={articles}/>
+            </Route>
         </div>
 
     )

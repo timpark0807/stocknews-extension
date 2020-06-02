@@ -4,6 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { NewsTable } from './NewsTable'
 import axios, {AxiosResponse} from 'axios';
+import { Link } from "react-router-dom";
 
 interface Props {
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -26,7 +27,9 @@ export const Search: React.FC<Props> = ({handleChange, handleClick}) => {
         </InputGroup>
 
         <InputGroup className="mb-3">
+            <Link to="/news">
             <Button variant="primary" onClick={handleClick}>Search</Button>
+            </Link>
         </InputGroup>
     </div>
     )
