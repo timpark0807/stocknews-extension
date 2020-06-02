@@ -5,7 +5,6 @@ import FormControl from 'react-bootstrap/FormControl';
 import { NewsTable } from './NewsTable'
 import axios from 'axios';
 
-
 export interface Article {
     headline: string;
     source: string;
@@ -42,12 +41,11 @@ export const MainPage: React.FC = () => {
         var arr: Article[] = []; 
 
         for (var item of resp) {
-            const temp: Article = {
-                                    headline: item.headline,
-                                    source: item.source, 
-                                    url: item.url
-                                }
-            arr.push(temp);
+            arr.push({
+                headline: item.headline,
+                source: item.source, 
+                url: item.url
+            });
         }
         setArticles({ticker:ticker, articles:arr});
     }
