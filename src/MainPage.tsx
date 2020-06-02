@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { NewsTable } from './NewsTable'
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
+import { Search } from "./Search";
 
 export interface Article {
     headline: string;
@@ -25,22 +26,18 @@ export const MainPage: React.FC = () => {
     function handleClick(event: React.MouseEvent<HTMLButtonElement>){
         axios.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/news?last=5&token=" + token)
         .then(response => {
-            processArticles(response.data);
+            processArticles(response);
             console.log(ticker)
         })
         .catch(error =>{
             console.log(error);
         })
     }
-
-    function handleClick2(event: React.MouseEvent<HTMLButtonElement>){
-        console.log(articles)
-    }
     
-    function processArticles(resp: any ) {
+    function processArticles(resp: AxiosResponse<any> ) {
         var arr: Article[] = []; 
 
-        for (var item of resp) {
+        for (var item of resp.data) {
             arr.push({
                 headline: item.headline,
                 source: item.source, 
@@ -57,28 +54,8 @@ export const MainPage: React.FC = () => {
     return (
 
         <div className="page">
-
-            <div className="search">
-                <InputGroup className="mb-3" onChange={handleChange}>
-                    <InputGroup.Prepend>
-                    <InputGroup.Text id="basic-addon1">$</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl
-                    placeholder="Ticker"
-                    aria-label="Ticker"
-                    aria-describedby="basic-addon1"
-                    />
-                </InputGroup>
-
-                <InputGroup className="mb-3">
-                    <Button onClick={handleClick} variant="primary">Search</Button>{' '}
-                </InputGroup>
-            </div>
-
-            <div className="results">
-                <NewsTable ticker={articles.ticker} articles={articles.articles}/>
-            </div>
-
+            <Search handleChange={handleChange} handleClick={handleClick} />
+            <NewsTable news={articles}/>
         </div>
 
     )
