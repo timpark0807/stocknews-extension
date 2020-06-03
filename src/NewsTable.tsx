@@ -1,14 +1,15 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import { Articles } from "./MainPage"
+import { Articles, Profile } from "./MainPage"
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Container, Row, Col } from 'react-bootstrap';
 
 interface Props {
     news: Articles;
+    profile: Profile;
 }
-export const NewsTable: React.FC<Props> = ({ news }) => {
+export const NewsTable: React.FC<Props> = ({ news, profile }) => {
 
     const renderTable = () => {
         return news.articles.map(function(article) {
@@ -23,38 +24,19 @@ export const NewsTable: React.FC<Props> = ({ news }) => {
 
     return (
         <div>
-        {news.articles.length > 1 ? 
-            <div>
-                <Row>
-                    <Col style={{fontSize:"xx-large", fontWeight:"bold"}} xs={8}>
-                        <label> ${news.ticker}</label>
-                    </Col>
-                </Row>
-                
-                <Row>
-                    <Table style={{width: "100%"}}>
-                    <thead>
-                        <tr>
-                        <th style={{width: "85%"}}>Headline</th>
-                        <th style={{width: "15%"}}>Source</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {renderTable()}
-                    </tbody>
-                    </Table>
-                </Row>
-            </div>
-        :
-            <div>
-                <label>Sorry! We couldn't find anything for ${news.ticker}.</label>
-                <br/>
-                <label>Please try another search.</label>
-            </div>
-
-
-        }
+            <Row>
+                <Table style={{width: "100%"}}>
+                <thead>
+                    <tr>
+                    <th style={{width: "85%"}}>Headline</th>
+                    <th style={{width: "15%"}}>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {renderTable()}
+                </tbody>
+                </Table>
+            </Row>
         </div>
-
     )
 }
