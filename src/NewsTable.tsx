@@ -23,10 +23,12 @@ export const NewsTable: React.FC<Props> = ({ news }) => {
 
     return (
         <div>
-        {news.articles.length > 1 && 
+        {news.articles.length > 1 ? 
             <div>
                 <Row>
-                    <Col style={{fontWeight:"bold", fontSize:"xx-large"}} xs={8}><label>${news.ticker}</label></Col>
+                    <Col style={{fontSize:"xx-large", fontWeight:"bold"}} xs={8}>
+                        <label> ${news.ticker}</label>
+                    </Col>
                 </Row>
                 
                 <Row>
@@ -43,6 +45,14 @@ export const NewsTable: React.FC<Props> = ({ news }) => {
                     </Table>
                 </Row>
             </div>
+        :
+            <div>
+                <label>Sorry! We couldn't find anything for ${news.ticker}.</label>
+                <br/>
+                <label>Please try another search.</label>
+            </div>
+
+
         }
         </div>
 
