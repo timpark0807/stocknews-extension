@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { NewsTable } from './NewsTable'
+import { NewsTable } from "./NewsTable";
 import { Search } from "./Search";
 import { Route } from "react-router-dom";
-import {NewsHeader} from './NewsHeader';
+import { NewsHeader } from "./NewsHeader";
+import { Error } from "./Error";
 
 export interface Article {
     headline: string;
@@ -54,9 +55,7 @@ export const MainPage: React.FC = () => {
 
                     // if request did not return a valid result, display error page. 
                     <div>
-                        <label>Sorry! We couldn't find anything for ${ticker}.</label>
-                        <br/>
-                        <label>Please try another search.</label>                    
+                        <Error ticker={ticker}/>
                     </div>
                 }
             </Route>
