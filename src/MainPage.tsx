@@ -4,7 +4,7 @@ import axios, {AxiosResponse} from 'axios';
 import { Search } from "./Search";
 import { Route } from "react-router-dom";
 import {NewsHeader} from './NewsHeader';
-
+import {FormControlProps} from "react-bootstrap"
 export interface Article {
     headline: string;
     source: string;
@@ -25,14 +25,16 @@ export interface Profile {
 export const MainPage: React.FC = () => {
 
     const token = process.env.REACT_APP_api_token;
+    const [last, setLast] = useState(5)
     const [ticker, setTicker] = useState("");
     const [articles, setArticles] = useState<Articles>({ticker:"", articles:[]});
     const [profile, setProfile] = useState<Profile>({companyName:"", latestPrice:"", symbol:""});
 
     function handleClick(event: React.MouseEvent<HTMLButtonElement>){
-        axios.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/news?last=5&token=" + token)
+        axios.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/news?last=" + last + "&token=" + token)
         .then(response => {
             processArticles(response);
+            console.log(response);
         })
         .catch(error =>{
             setArticles({ticker:ticker, articles:[]});
@@ -72,11 +74,15 @@ export const MainPage: React.FC = () => {
         setTicker(event.target.value.toUpperCase());
     };
 
+    function handleLastChange(event: any) {
+        setLast(event.target.value.toString());
+    };
+
     return (
 
         <div className="page">
             <Route path="/index.html">
-                <Search handleChange={handleChange} handleClick={handleClick} />
+                <Search ticker={ticker} handleChange={handleChange} handleClick={handleClick} handleLastChange={handleLastChange} />
             </Route>
 
             <Route exact path="/news">
