@@ -1,61 +1,68 @@
 import React, { useState } from "react";
-import { NewsTable } from "./NewsTable";
 import { Search } from "./Search";
 import { Route } from "react-router-dom";
 import { NewsHeader } from "./NewsHeader";
 import { Error } from "./Error";
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
+import TabContent from 'react-bootstrap/TabContent'
 
-export interface Article {
-    headline: string;
-    source: string;
+export interface Station {
+    name: string;
     url: string;
+    active: string; 
+    address: Address;
 }
 
-export interface Articles {
-    ticker: string;
-    articles: Article[];
-}
-
-export interface Profile {
-    companyName: string;
-    latestPrice: string;
-    symbol: string;
+export interface Address {
+    city: string; 
+    street: string;
+    zipcode: string;
+    state: string; 
 }
 
 export const MainPage: React.FC = () => {
 
     const [last, setLast] = useState("5")
-    const [ticker, setTicker] = useState("");
-    const [articles, setArticles] = useState<Articles>({ticker:"", articles:[]});
-    const [profile, setProfile] = useState<Profile>({companyName:"", latestPrice:"", symbol:""});
+    const [zipcode, setZipcode] = useState("");
+    const [station, setStation] = useState<Station>({name:"", url:"", active: "", address:{street:"", city:"", zipcode:"", state:""}});
 
     return (
 
         <div className="page">
             <Route path="/index.html">
-                <Search 
-                    last={last} 
-                    ticker={ticker} 
-                    setArticles={setArticles} 
-                    setProfile={setProfile} 
-                    setTicker={setTicker} 
-                    setLast={setLast}
-                />
+
+                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+                <Tab eventKey="home" title="Search">
+                    <TabContent >
+                    <Search 
+                            last={last} 
+                            zipcode={zipcode} 
+                            setStation={setStation} 
+                            setZipcode={setZipcode} 
+                            setLast={setLast}
+                        />
+                        </TabContent>
+                </Tab>
+                <Tab eventKey="profile" title="Profile">
+                    "temp"
+                </Tab>
+                </Tabs>
+                
             </Route>
 
             <Route exact path="/news">
-                {articles.articles.length > 1 ?
+                {station.url.length >= 1 ?
 
                     // if request was succesful, display news page. 
                     <div> 
-                        <NewsHeader profile={profile}/>
-                        <NewsTable news={articles} profile={profile}/>
+                        <NewsHeader station={station}/>
                     </div>
                 : 
 
                     // if request did not return a valid result, display error page. 
                     <div>
-                        <Error ticker={ticker}/>
+                        <Error ticker={zipcode}/>
                     </div>
                 }
             </Route>

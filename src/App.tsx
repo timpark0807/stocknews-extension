@@ -13,7 +13,7 @@ function App() {
         <Navbar bg="primary" expand="lg" variant="dark">
 
           <Route exact path="/index.html">
-            <Navbar.Brand>Stock News</Navbar.Brand>
+            <Navbar.Brand>SuperCharger</Navbar.Brand>
           </Route>
 
           <Route exact path="/news">

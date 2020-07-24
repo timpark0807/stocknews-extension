@@ -1,30 +1,44 @@
 import React from "react";
-import { Profile } from "./MainPage";
+import { Station } from "./MainPage";
+import { Container, Row, Col } from 'react-bootstrap';
 
 interface Props {
-    profile: Profile;
+    station: Station;
 };
 
-export const NewsHeader: React.FC<Props> = ({ profile }) => {
+export const NewsHeader: React.FC<Props> = ({ station }) => {
+
+    const renderAddress = () => {
+        return (
+            <div>
+                {station.address.street} 
+                <br/>
+                {station.address.city + ", " + station.address.state + " " + station.address.zipcode}
+
+            </div>
+        )
+    }
     return (
         <div>
             <div>
-                <label style={{fontSize:"x-large", fontWeight:"bold"}}>
-                    {profile.companyName} 
-                </label>
-            </div>
+                <div>
+                    <label style={{fontSize:"x-large", fontWeight:"bold"}}>
+                        {station.name} 
+                    </label>
+                </div>
 
-            <div>
-                <label>
-                    Latest Price: ${profile.latestPrice}
-                </label>
-            </div>
+                <div>
+                    <label>
+                        <a href={"https://www.tesla.com" + station.url}>Link</a>
+                    </label>
+                </div>
 
-            <div>
-                <label>
-                    Displaying news articles for ${profile.symbol}
-                </label>
+                <div>
+                    {renderAddress()}
+                </div>
+    
             </div>
         </div>
+
     )
 };
